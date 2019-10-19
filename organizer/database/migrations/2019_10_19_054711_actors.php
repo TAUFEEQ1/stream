@@ -20,6 +20,7 @@ class Actors extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('Other');
+            $table->timestamps();
         });
     }
 

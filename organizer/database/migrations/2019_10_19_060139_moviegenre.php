@@ -14,6 +14,17 @@ class Moviegenre extends Migration
     public function up()
     {
         //
+        Schema::create('moviegenre',function(Blueprint $table){
+            $table->bigIncrements('id');
+            $table->primary('id');
+            $table->foreign('movies_id')
+            ->references('id')->on('movies')
+            ->onDelete('cascade');
+            $table->foreign('genre_id')
+            ->references('id')->on('genre')
+            ->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,5 +35,6 @@ class Moviegenre extends Migration
     public function down()
     {
         //
+        Schema::drop('moviegenre');
     }
 }
