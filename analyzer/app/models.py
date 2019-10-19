@@ -63,16 +63,6 @@ class MovieGenre(db.Model):
     )
 
 
-class MovieViews(db.Model):
-    __tablename__ = 'movieviews'
-    id = db.Column(db.Integer, primary_key=True)
-    movies_id = db.Column(
-        db.Integer,
-        db.ForeignKey('movies.id'), nullable=False)
-    views = db.Column(db.Integer)
-    tocompletion = db.Column(db.Integer)
-
-
 class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
@@ -112,7 +102,8 @@ class OrderType(db.Model):
     type = db.Column(db.String, unique=True)
 
 
-class OrdersContent(db.Model):
+class OrderContent(db.Model):
+    __tablename__ = 'ordercontent'
     id = db.Column(db.Integer)
     order_id = db.Column(
        db.Integer,

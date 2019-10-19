@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Userviews extends Migration
+class Order extends Migration
 {
     /**
      * Run the migrations.
@@ -14,18 +14,13 @@ class Userviews extends Migration
     public function up()
     {
         //
-        Schema::create('userviews',function(Blueprint $table){
+        Schema::create('order',function (Blueprint $table){
             $table->bigIncrements('id');
             $table->primary('id');
-            $table->foreign('movies_id')
-            ->references('id')->on('movies')
+            $table->foreign('order_id')
+            ->references('id')->on('order')
             ->onDelete('cascade');
-            $table->foreign('user_id')
-            ->references('id')->on('user')
-            ->onDelete('cascade');
-            $table->dateTime('start');
-            $table->dateTime('end');
-            $table->integer('duration');
+            $table->integer('amount');
         });
     }
 
@@ -37,6 +32,5 @@ class Userviews extends Migration
     public function down()
     {
         //
-        Schema::drop('userviews');
     }
 }
