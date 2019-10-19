@@ -16,13 +16,14 @@ class Movieactors extends Migration
         //
         Schema::create('movieactors',function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->primary('id');
+            $table->integer('movies_id');
+
             $table->foreign('movies_id')
             ->references('id')->on('movies')
             ->onDelete('cascade');
-            $table->foreign('movies_id')
-            ->references('id')->on('movies')
-            ->onDelete('cascade');
+            
+            $table->integer('actors_id');
+            
             $table->foreign('actors_id')
             ->references('id')->on('actors')
             ->onDelete('cascade');

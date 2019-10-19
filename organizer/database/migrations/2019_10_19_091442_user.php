@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Order extends Migration
+class User extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,12 @@ class Order extends Migration
     public function up()
     {
         //
-        Schema::create('order',function (Blueprint $table){
+        Schema::create('user',function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->foreign('user_id')
-            ->references('id')->on('user')
-            ->onDelete('cascade');
-            $table->integer('amount');
-            $table->timestamps();
+            $table->string('phone_no');
+            $table->unique('phone_no');
+            $table->string('api_token');
+            $table->unique('api_token');
         });
     }
 
@@ -33,5 +31,6 @@ class Order extends Migration
     public function down()
     {
         //
+        Schema::drop('user');
     }
 }

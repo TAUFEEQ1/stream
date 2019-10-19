@@ -16,13 +16,17 @@ class Userviews extends Migration
         //
         Schema::create('userviews',function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->primary('id');
+            $table->integer('movies_id');
+
             $table->foreign('movies_id')
             ->references('id')->on('movies')
             ->onDelete('cascade');
+            $table->integer('user_id');
+            
             $table->foreign('user_id')
             ->references('id')->on('user')
             ->onDelete('cascade');
+
             $table->dateTime('start');
             $table->dateTime('end');
             $table->integer('duration');

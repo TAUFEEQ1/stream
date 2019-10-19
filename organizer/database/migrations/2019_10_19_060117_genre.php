@@ -16,7 +16,6 @@ class Genre extends Migration
         //
         Schema::create('genre',function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->primary('id');
             $table->string('genre');
             $table->unique('genre');
             $table->timestamps();

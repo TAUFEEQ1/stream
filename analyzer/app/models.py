@@ -95,6 +95,8 @@ class Order(db.Model):
         nullable=False
     )
     amount = db.Column(db.Integer)
+    created_at = db.Column(db.DateTime)
+    updated_at = db.Column(db.DateTime)
 
 
 class OrderType(db.Model):
@@ -116,7 +118,7 @@ class OrderContent(db.Model):
         nullable=False
     )
     status = db.Column(db.Boolean)
-    order_type = db.Column(
+    ordertype_id = db.Column(
         db.Integer,
         db.ForeignKey('ordertype.id')
     )

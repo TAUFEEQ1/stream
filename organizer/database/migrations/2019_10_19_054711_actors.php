@@ -14,9 +14,8 @@ class Actors extends Migration
     public function up()
     {
         //
-        Schema::table('actors',function (Blueprint $table){
+        Schema::create('actors',function (Blueprint $table){
             $table->bigIncrements('id');
-            $table->primary('id');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('other');

@@ -16,7 +16,7 @@ class Synopsis extends Migration
         //
         Schema::create('synopsis',function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->primary('id');
+            $table->integer('movies_id');
             $table->text('synopsis');
             $table->foreign('movies_id')
             ->references('id')->on('movies')

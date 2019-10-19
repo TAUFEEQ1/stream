@@ -16,7 +16,6 @@ class Movies extends Migration
         //
         Schema::create('movies',function (Blueprint $table){
             $table->bigIncrements('id');
-            $table->primary('id');
             $table->string('title');
             $table->string('subtitle');
             $table->integer('duration');

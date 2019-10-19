@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class User extends Migration
+class Ordertype extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,10 @@ class User extends Migration
     public function up()
     {
         //
-        Schema::create('user',function(Blueprint $table){
+        Schema::create('ordertype',function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->primary('id');
-            $table->string('phone_no');
-            $table->unique('phone_no');
-            $table->string('api_token');
-            $table->unique('api_token');
+            $table->string('type');
+            $table->unique('type');
         });
     }
 
@@ -32,6 +29,6 @@ class User extends Migration
     public function down()
     {
         //
-        Schema::drop('user');
+        Schema::drop('ordertype');
     }
 }

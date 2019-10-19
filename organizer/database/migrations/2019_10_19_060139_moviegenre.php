@@ -16,10 +16,11 @@ class Moviegenre extends Migration
         //
         Schema::create('moviegenre',function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->primary('id');
+            $table->integer('movies_id');
             $table->foreign('movies_id')
             ->references('id')->on('movies')
             ->onDelete('cascade');
+            $table->integer('genre_id');
             $table->foreign('genre_id')
             ->references('id')->on('genre')
             ->onDelete('cascade');

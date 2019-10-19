@@ -14,6 +14,17 @@ class Ordercontent extends Migration
     public function up()
     {
         //
+        Schema::create('ordercontent',function(Blueprint $table){
+            $table->bigIncrements('id');
+            $table->integer('order_id');
+            $table->foreign('order_id')
+            ->references('id')->on('order')
+            ->onDelete('cascade');
+            $table->integer('ordertype_id');
+            $table->foreign('ordertype_id')
+            ->references('id')->on('ordertype')
+            ->onDelete('cascade');
+        });
     }
 
     /**
@@ -24,5 +35,6 @@ class Ordercontent extends Migration
     public function down()
     {
         //
+        Schema::drop('ordercontent');
     }
 }
