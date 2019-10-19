@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Movies extends Migration
+class Userviews extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,18 @@ class Movies extends Migration
     public function up()
     {
         //
-        Schema::create('movies',function (Blueprint $table){
+        Schema::create('userviews',function(Blueprint $table){
             $table->bigIncrements('id');
             $table->primary('id');
-            $table->string('title');
-            $table->string('subtitle');
+            $table->foreign('movies_id')
+            ->references('id')->on('movies')
+            ->onDelete('cascade');
+            $table->foreign('user_id')
+            ->references('id')->on('user')
+            ->onDelete('cascade');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->integer('duration');
-            $table->timestamps();
         });
     }
 
@@ -32,6 +37,5 @@ class Movies extends Migration
     public function down()
     {
         //
-        Schema::drop('movies');
     }
 }
