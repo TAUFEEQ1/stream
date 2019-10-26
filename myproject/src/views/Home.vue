@@ -89,7 +89,6 @@ export default {
             drawer: null,
             recom:[],
             selcats:[],
-            daterange:[],
             switch1:false,
             filtering:false,
             popular:[],
@@ -110,12 +109,22 @@ export default {
                         let yesterday = moment().subtract(1, 'day').toDate();
                         let date2 = moment();
                         interest = [yesterday,date2];
+                        this.thedata['daterange'] = interest;
                         break;
                     case "lastweek":
+                        let lastweek = moment().subtract(7,'day').toDate();
+                        let date2 = moment();
+                        this.thedata['daterange'] = [lastweek,date2];
                         break;
                     case "lastmonth":
+                        let lastmonth = moment().subtract(30,'day').toDate();
+                        let date2 = moment();
+                        this.thedata['daterange'] = [lastmonth,date2];
                         break;
                     case "threemonths":
+                        let threemonth = moment().subtract(90,'day').toDate();
+                        let date2 = moment();
+                        this.thedata['daterange'] = [threemonth,date2];
                         break;
                 }
 
@@ -135,14 +144,9 @@ export default {
     },
     methods:{
         getlatest(){
-            let theval = this.radios;
-            let interest = [];
-
             this.axios({
                 url:config.organizer + 'get_latest',
-                data: {
-
-                }
+                data:this.thedata
             }).then((response)=>{
                 this.latest = response.data;
             });
@@ -150,7 +154,7 @@ export default {
         getpopular(){
             this.axios({
                 url:config.organizer + 'get_popular',
-                data:thefilter
+                data:this.thedata
             }).then((response)=>{
                 this.popular = response.data;
             });
@@ -159,7 +163,7 @@ export default {
             let thefilter = this.filters;
             this.axios({
                 url:config.analyzer +'get_recommended',
-                data:thefilter
+                data:this.thedata
             }).then((response)=>{
                 //Recommended
                 this.recom = response.data;
