@@ -7,18 +7,29 @@ use Laravel\Lumen\Http\Request;
 class HomeController extends Controller
 {
     public function get_latest(Request $request){
-        $count = $request->input('count');
-        if($request->has('date1')){
+        $filter = $request->all();
+        if($filter['daterange']){
             //Filter by date
+
         }
-        if($request->has('categories')){
+        if($filter('categories')){
             //filter by categories
         }
 
     }
     
     public function get_popular(Request $request){
-
+        $collection = \App\UserViews::groupBy('movies_id')
+        ->selectRaw('count(*) as total, movies_id')
+        ->orderBy('total','desc')
+        ->take(12)
+        ->get();
+        $themovies = array();
+        foreach($collection as $movie){
+            $themovie = \App\Movies::find($movie->movies_id);
+            array_push($themovies, $themovie);
+        }
+        return response()->json($collection);
     }
     public function authenticate(Request $request){
         $phone_no = $request->input('phone_no');

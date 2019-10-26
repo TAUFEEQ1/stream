@@ -132,7 +132,3 @@ class Trainer:
             thread3.join()
         while self.glisten:
             p.subscribe(**{'encoding': encoding_done})
-
-        # thread to get genre
-        # continue to get ratings
-        # after ratings
