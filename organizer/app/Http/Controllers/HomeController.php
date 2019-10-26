@@ -10,21 +10,29 @@ class HomeController extends Controller
         $filter = $request->all();
         // $thequery = \App\MovieGenre::where('id', $productId)
         // ->leftJoin('movies', 'moviegenre.movies_id', '=', 'moviegenre.id');
+        $thequery = DB::table('moviegenre')
+        ->join('movies', 'moviegenre.movies_id', '=', 'movies.id');
         if($filter['daterange']){
+            $dates = $filter['daterange'];
             //Filter by date
-
+            $thequery->whereBetween(
+                'movies.created_at',
+                [$dates[0],$dates[1]]);
         }
-        if($filter('categories')){
+        if($filter['categories']){
+            $categories = $filter['categories'];
             //filter by categories
+            $thequery->whereIn('genres_id',$categories);
         }
-
+        $movies = $thequery->take(10)->get();
+        return response()->json($movies);
     }
     
     public function get_popular(Request $request){
         $collection = \App\UserViews::groupBy('movies_id')
         ->selectRaw('count(*) as total, movies_id')
         ->orderBy('total','desc')
-        ->take(12)
+        ->take(10)
         ->get();
         $themovies = array();
         foreach($collection as $movie){
