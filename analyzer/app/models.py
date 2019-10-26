@@ -82,6 +82,7 @@ class UserViews(db.Model):
         db.ForeignKey('user.id'),
         nullable=False
     )
+    ratings = db.Column(db.Integer)
     # start = db.Column(db.DateTime)
     # end = db.Column(db.DateTime)
     # duration = db.Column(db.Integer)
