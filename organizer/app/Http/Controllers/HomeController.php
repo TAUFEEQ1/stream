@@ -8,6 +8,8 @@ class HomeController extends Controller
 {
     public function get_latest(Request $request){
         $filter = $request->all();
+        // $thequery = \App\MovieGenre::where('id', $productId)
+        // ->leftJoin('movies', 'moviegenre.movies_id', '=', 'moviegenre.id');
         if($filter['daterange']){
             //Filter by date
 
