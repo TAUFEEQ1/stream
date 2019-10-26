@@ -1,3 +1,4 @@
 {
-    "url": "http://localhost:8080/"
+    "analyzer": "http://localhost:8080/",
+    "organizer": "http://localhost:8080/"
 }

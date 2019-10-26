@@ -87,7 +87,8 @@ export default {
             selcats:[],
             switch1:false,
             filtering:false,
-            popular:[]
+            popular:[],
+            filters:{}
         }
     },
     components:{
@@ -102,28 +103,31 @@ export default {
     },
     methods:{
         getlatest(){
+            let thefilter = this.filters;
             this.axios({
-                url:config.url + 'get_latest',
-                params:{count:5}
+                url:config.organizer + 'get_latest',
+                data: thefilter
             }).then((response)=>{
                 this.latest = response.data;
             });
         },
         getpopular(){
+            let thefilter = this.filters;
             this.axios({
-                url:config.url + 'get_popular',
-                params:{}
+                url:config.organizer + 'get_popular',
+                data:thefilter
             }).then((response)=>{
-
+                this.popular = response.data;
             });
         },
         getrecommended(){
+            let thefilter = this.filters;
             this.axios({
-                url:config.url +'get_popular',
-                params:{}
+                url:config.analyzer +'get_recommended',
+                data:thefilter
             }).then((response)=>{
                 //Recommended
-
+                this.recom = response.data;
             });
         }
     }
