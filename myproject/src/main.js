@@ -6,6 +6,8 @@ import VueCookies from 'vue-cookies';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import store from './store';
+import VueWebsocket from "vue-websocket";
+Vue.use(VueWebsocket);
 Vue.use(VueCookies);
 Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
