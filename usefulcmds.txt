@@ -1,0 +1,3 @@
+ffmpeg -i my-video.mov -vcodec h264 -acodec mp2 my-video.mp4
+http://www.hd-trailers.net/movie/captain-marvel/
+MP4Box -frag 10000 -dash 30000 -segment-name segment_file main.mp4

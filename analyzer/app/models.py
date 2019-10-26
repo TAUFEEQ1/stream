@@ -68,6 +68,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     phone_no = db.Column(db.String, unique=True)
     api_token = db.Column(db.String, unique=True)
+    pref_model = db.relationship("User")
 
 
 class UserViews(db.Model):
@@ -81,9 +82,32 @@ class UserViews(db.Model):
         db.ForeignKey('user.id'),
         nullable=False
     )
-    start = db.Column(db.DateTime)
-    end = db.Column(db.DateTime)
-    duration = db.Column(db.Integer)
+    # start = db.Column(db.DateTime)
+    # end = db.Column(db.DateTime)
+    # duration = db.Column(db.Integer)
+
+
+class UserPreference(db.Model):
+    __tablename__ = 'userpref'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('user.id'),
+        nullable=False
+    )
+    model_path = db.Column(db.String, nullable=False)
+
+
+class MovieProgress(db.Model):
+    __tablename__ = 'movieprogress'
+    id = db.Column(db.Integer, primary_key=True)
+    cur_seg = db.Column(db.Integer)
+    total_seg = db.Column(db.Integer)
+    userview_id = db.Column(
+        db.Integer,
+        db.ForeignKey('userviews.id'),
+        nullable=False
+    )
 
 
 class Order(db.Model):
