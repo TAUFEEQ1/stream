@@ -53,7 +53,7 @@ export default {
         getCast(){
             let movie_id = this.movie_id;
             this.axios({
-                url: config.url + 'get_cast',
+                url: config.organizer + 'get_cast',
                 params:{movie_id:movie_id}
             }).then((response)=>{
                 this.cast = response.data;
@@ -62,7 +62,7 @@ export default {
         getPlot(){
             let movie_id = this.movie_id;
             this.axios({
-                url:config.url + 'get_synopsis',
+                url:config.organizer + 'get_synopsis',
                 params:{movie_id:movie_id}
             }).then((response)=>{
                 this.plot = response.data;
