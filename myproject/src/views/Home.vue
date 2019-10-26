@@ -81,6 +81,7 @@ import config from '../config.json'
 import HeaderView from '../components/HeaderView'
 import Recommended from '../components/Recommended'
 import MostPopular from '../components/MostPopular'
+import moment from 'moment'
 export default {
     data(){
         return{
@@ -88,12 +89,39 @@ export default {
             drawer: null,
             recom:[],
             selcats:[],
+            daterange:[],
             switch1:false,
             filtering:false,
             popular:[],
-            filters:{},
-            radios:''
+            radios:'',
+            thedata:{}
         }
+    },
+    watch:{
+        selcats: function(){
+            if(this.selcats.length > 0){
+                this.thedata['catgeories'] = this.selcats
+            }
+        },
+        radios:function(theval){
+            if(theval){
+                switch(theval){
+                    case "yesterday":
+                        let yesterday = moment().subtract(1, 'day').toDate();
+                        let date2 = moment();
+                        interest = [yesterday,date2];
+                        break;
+                    case "lastweek":
+                        break;
+                    case "lastmonth":
+                        break;
+                    case "threemonths":
+                        break;
+                }
+
+            }
+        }
+
     },
     components:{
         'head-view':HeaderView,
@@ -107,16 +135,19 @@ export default {
     },
     methods:{
         getlatest(){
-            let thefilter = this.filters;
+            let theval = this.radios;
+            let interest = [];
+
             this.axios({
                 url:config.organizer + 'get_latest',
-                data: thefilter
+                data: {
+
+                }
             }).then((response)=>{
                 this.latest = response.data;
             });
         },
         getpopular(){
-            let thefilter = this.filters;
             this.axios({
                 url:config.organizer + 'get_popular',
                 data:thefilter
