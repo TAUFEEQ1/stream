@@ -67,6 +67,9 @@
         <v-row
         >
             <header-view :latest="latest"></header-view>
+            <v-btn @click="searching">
+                Search
+            </v-btn>
             <recommended  :recom="recom"></recommended>
             <most-popular :popular="popular"></most-popular>
         </v-row>
@@ -88,7 +91,8 @@ export default {
             switch1:false,
             filtering:false,
             popular:[],
-            filters:{}
+            filters:{},
+            radios:''
         }
     },
     components:{
@@ -129,6 +133,11 @@ export default {
                 //Recommended
                 this.recom = response.data;
             });
+        },
+        searching(){
+            this.getrecommended();
+            this.getlatest();
+            this.getpopular();
         }
     }
 }
