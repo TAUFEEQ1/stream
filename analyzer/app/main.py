@@ -1,4 +1,4 @@
-from compute import HomeView
+from home import HomeView
 from . import app, socketio
 HomeView.register(app)
 if __name__ == '__main__':
