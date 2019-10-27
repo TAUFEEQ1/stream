@@ -1,7 +1,7 @@
 <template>
     <div>
         <h4>Recommended</h4>
-        <carousel  :navigationEnabled=true :autoplay="true" class="mt-2"
+        <carousel  :navigationEnabled="true" :autoplay="true" class="mt-2"
         paginationActiveColor="#42b983" paginationColor="#b2ebd1" :perPage="2">
             <slide
                 v-for="(p,index) in recom"
@@ -9,7 +9,7 @@
             >
                 <figure>
                     <v-img 
-                        :src="'/images/'+p.mposter"
+                        :src="'/images/'+p.mposter+'/1.jpg'"
                         max-width="200"
                         max-height="200"
                         class="grey lighten-2"
