@@ -23,7 +23,7 @@ func main() {
 	db, err := gorm.Open("sqlite3", "../../flicks")
 	http.Handle("/", handlers())
 	http.ListenAndServe(":8003", nil)
-	defer db.close()
+	defer db.Close()
 }
 func handlers() *mux.Router {
 	router := mux.NewRouter()
