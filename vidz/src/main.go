@@ -2,23 +2,32 @@ package main
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-func serveFile() {
-	//Notify analyzer for each
-	//Segment being requested of the time
-	//movie_id as well as user_id
-	//record viewing session.
+type userviewlets struct {
+	gorm.Model
+	userviews_id int
+	segment      int
+	created_at   time.Time
+}
+
+func recordView(userviewId, segno) {
+	db.Model(&userviewlets{userviews_id: userviewId, segment: segno, created_at: time.Now()})
 }
 func main() {
+	db, err := gorm.Open("sqlite3", "test.db")
 	http.Handle("/", handlers())
 	http.ListenAndServe(":8003", nil)
+	defer db.close()
 }
 func handlers() *mux.Router {
 	router := mux.NewRouter()
-	router.HandleFunc("{segno}/{userId}/{videoId}/stream/", streamHandler).Methods("GET")
+	router.HandleFunc("{userviewId}/{segno}/stream/", streamHandler).Methods("GET")
 	return router
 }
 func streamHandler(response http.ResponseWriter, request *http.Request) {
