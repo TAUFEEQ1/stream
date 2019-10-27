@@ -12,4 +12,7 @@ class FilmController extends Controller{
         $themovie->plot;
         return \response()->json($themovie);
     }
+    public function rate_movie(Request $request){
+        
+    }
 }

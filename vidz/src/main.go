@@ -20,7 +20,7 @@ func recordView(userviewId, segno) {
 	db.Model(&userviewlets{userviews_id: userviewId, segment: segno, created_at: time.Now()})
 }
 func main() {
-	db, err := gorm.Open("sqlite3", "test.db")
+	db, err := gorm.Open("sqlite3", "../../flicks")
 	http.Handle("/", handlers())
 	http.ListenAndServe(":8003", nil)
 	defer db.close()
