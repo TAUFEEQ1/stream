@@ -19,7 +19,7 @@ class Film(FlaskView):
                 UserPreference.user_id == user_id
             ).first()
             # check actors catalog.
-            nactors = r.lLen('nactors')
+            nactors = r.lLen('nactors') or 0
             if (nactors/Actors.query.count()) > 0.14:
                 user_model = False
 

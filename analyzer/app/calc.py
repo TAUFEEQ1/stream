@@ -165,4 +165,14 @@ class Trainer:
             X.append(lbl)
             ratings = userview.ratings
             y.append(ratings)
-        
+        user_model = UserPreference.query.filter(
+            UserPreference.user_id == self.user_id).first()
+        userPref = pickle.load(open(user_model.model_path, 'rb'))
+        userPref.fit(X, y)
+
+        theid = str(uuid.uuid4())
+        npath = 'models/{0}/{1}'.format(self.user_id, theid)
+        pickle.dump(userPref, open(npath, 'wb'))
+        userp = UserPreference.query.get(user_model.id)
+        userp.model_path = npath
+        db.session.commit()
