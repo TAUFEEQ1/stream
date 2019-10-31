@@ -1,10 +1,11 @@
-from flask.ext.classy import FlaskView, route, jsonify
-from flask import request
+from flask_classy import FlaskView, route
+from flask import jsonify, redirect
+from flask import request, url_for
 from models import MovieGenre, Movies, User, MovieActors, UserPreference
 # from models import UserViews
 import pickle
-from . import db
-from sqlalchemy import load_only
+from app import db
+from sqlalchemy.orm import load_only
 import numpy as np
 from serializers import MovieSchema
 
@@ -38,7 +39,7 @@ class HomeView(FlaskView):
         if (theanswer):
             return new_mov
 
-    @route('get_recommended', method=['GET'])
+    @route('get_recommended', methods=['GET'])
     def get_recommended(self):
         # count user views
         thefilter = request.json
@@ -61,9 +62,12 @@ class HomeView(FlaskView):
         ).options(
             load_only('model_path')
         ).first()
-        self.userPref = pickle.load(open(model_path, 'rb'))
-        self.genres_labeler = pickle.load(open('genreslabeler', 'rb'))
-        self.actors_labeler = pickle.load(open('actorslabeler', 'rb'))
-        recommended = list(map(self.detPref, themovies))
-        recommended = list(filter(None, recommended))
-        return jsonify(MovieSchema(recommended))
+        if(model_path):
+            self.userPref = pickle.load(open(model_path, 'rb'))
+            self.genres_labeler = pickle.load(open('genreslabeler', 'rb'))
+            self.actors_labeler = pickle.load(open('actorslabeler', 'rb'))
+            recommended = list(map(self.detPref, themovies))
+            recommended = list(filter(None, recommended))
+            return jsonify(MovieSchema(recommended))
+        else:
+            redirect(url_for('get_popular'), code=307)

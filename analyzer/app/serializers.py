@@ -1,4 +1,4 @@
-from . import ma
+from app import ma
 from models import Movies
 
 

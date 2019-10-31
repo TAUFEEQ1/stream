@@ -1,13 +1,13 @@
 <template>
     <div>
-        <carousel-3d style="width:150vh;" :width="280" :height="360" :space="10">
+        <carousel style="width:80vh;" :width="280" :height="360">
             <slide
                 v-for="(j,index) in latest"
                 :key="'latest'+index"
             >
                 <figure>
                     <v-img 
-                        :src="'/images/'+j.mposter"
+                        :src="'/images/'+j.mposter+'/1.jpg'"
                         max-width="200"
                         max-height="200"
                         class="grey lighten-2"
@@ -17,7 +17,7 @@
                     </figcaption>
                 </figure>
             </slide>
-        </carousel-3d>
+        </carousel>
     </div>
 </template>
 <style scoped>

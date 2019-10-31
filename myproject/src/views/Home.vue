@@ -52,7 +52,7 @@
                         <v-radio
                             label="Last Month"
                             value="lastmonth"
-                        >
+                        ></v-radio>
                         <v-radio
                             label="Last 3 Months"
                             value="threemonths"
@@ -66,12 +66,11 @@
     <v-container class="fill-height">
         <v-row
         >
-            <header-view :latest="latest"></header-view>
+            <head-view :latest="latest"></head-view>
             <v-btn @click="searching">
                 Search
             </v-btn>
             <recommended  :recom="recom"></recommended>
-            <most-popular :popular="popular"></most-popular>
         </v-row>
     </v-container>
 </v-sheet>
@@ -80,7 +79,6 @@
 import config from '../config.json'
 import HeaderView from '../components/HeaderView'
 import Recommended from '../components/Recommended'
-import MostPopular from '../components/MostPopular'
 import moment from 'moment'
 export default {
     data(){
@@ -103,27 +101,29 @@ export default {
             }
         },
         radios:function(theval){
+            let yesterday,date2,lastmonth,threemonth,lastweek = Date();
+            let interest = []
             if(theval){
                 switch(theval){
                     case "yesterday":
-                        let yesterday = moment().subtract(1, 'day').toDate();
-                        let date2 = moment();
+                        yesterday = moment().subtract(1, 'day').toDate();
+                        date2 = moment();
                         interest = [yesterday,date2];
                         this.thedata['daterange'] = interest;
                         break;
                     case "lastweek":
-                        let lastweek = moment().subtract(7,'day').toDate();
-                        let date2 = moment();
+                        lastweek = moment().subtract(7,'day').toDate();
+                        date2 = moment();
                         this.thedata['daterange'] = [lastweek,date2];
                         break;
                     case "lastmonth":
-                        let lastmonth = moment().subtract(30,'day').toDate();
-                        let date2 = moment();
+                        lastmonth = moment().subtract(30,'day').toDate();
+                        date2 = moment();
                         this.thedata['daterange'] = [lastmonth,date2];
                         break;
                     case "threemonths":
-                        let threemonth = moment().subtract(90,'day').toDate();
-                        let date2 = moment();
+                        threemonth = moment().subtract(90,'day').toDate();
+                        date2 = moment();
                         this.thedata['daterange'] = [threemonth,date2];
                         break;
                 }
@@ -134,19 +134,22 @@ export default {
     },
     components:{
         'head-view':HeaderView,
-        'recommended':Recommended,
-        'most-popular':MostPopular
+        'recommended':Recommended
     },
     created(){
         if(!this.$cookies.get('Api-Token')){
             this.$router.push({path:'/login'});
         }
     },
+    mounted(){
+        this.getlatest();
+    },
     methods:{
         getlatest(){
             this.axios({
                 url:config.organizer + 'get_latest',
-                data:this.thedata
+                data:this.thedata,
+                headers:{'Api-Token':this.$cookies.get('Api-Token')}
             }).then((response)=>{
                 this.latest = response.data;
             });
@@ -160,7 +163,6 @@ export default {
             });
         },
         getrecommended(){
-            let thefilter = this.filters;
             this.axios({
                 url:config.analyzer +'get_recommended',
                 data:this.thedata
@@ -168,6 +170,9 @@ export default {
                 //Recommended
                 this.recom = response.data;
             });
+        },
+        get_genres(){
+
         },
         searching(){
             this.getrecommended();

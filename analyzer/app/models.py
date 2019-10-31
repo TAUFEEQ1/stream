@@ -124,26 +124,26 @@ class Order(db.Model):
     updated_at = db.Column(db.DateTime)
 
 
-class OrderType(db.Model):
-    id = db.Column(db.Interger, primary_key=True)
-    type = db.Column(db.String, unique=True)
+# class OrderType(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     type = db.Column(db.String, unique=True)
 
 
-class OrderContent(db.Model):
-    __tablename__ = 'ordercontent'
-    id = db.Column(db.Integer)
-    order_id = db.Column(
-       db.Integer,
-       db.ForeignKey('order.id'),
-       nullable=False
-    )
-    movies_id = db.Column(
-        db.Integer,
-        db.ForeignKey('movies_id'),
-        nullable=False
-    )
-    status = db.Column(db.Boolean)
-    ordertype_id = db.Column(
-        db.Integer,
-        db.ForeignKey('ordertype.id')
-    )
+# class OrderContent(db.Model):
+#     __tablename__ = 'ordercontent'
+#     id = db.Column(db.Integer)
+#     order_id = db.Column(
+#        db.Integer,
+#        db.ForeignKey('order.id'),
+#        nullable=False
+#     )
+#     movies_id = db.Column(
+#         db.Integer,
+#         db.ForeignKey('movies_id'),
+#         nullable=False
+#     )
+#     status = db.Column(db.Boolean)
+#     ordertype_id = db.Column(
+#         db.Integer,
+#         db.ForeignKey('ordertype.id')
+#     )

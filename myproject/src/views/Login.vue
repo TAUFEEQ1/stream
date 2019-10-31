@@ -44,9 +44,9 @@ export default {
             if (this.$refs.form.validate()) {
                 let phone_no = this.phoneNo;
                 this.axios({
-                    url: config.url + 'authenticate',
-                    params:{phone_no:phone_no},
-                    method:'POST'
+                    url: config.organizer + 'authenticate',
+                    data:{phone_no:phone_no},
+                    method:"post"
                 }).then((response)=>{
                     this.$cookies.set('Api-Token', response.data['auth_key'],'1d','/',window.location.hostname);
                     //route to Home 
