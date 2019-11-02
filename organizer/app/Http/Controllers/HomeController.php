@@ -9,6 +9,7 @@ class HomeController extends Controller
 {
     public function get_latest(Request $request){
         $filter = $request->all();
+        
         // $thequery = \App\MovieGenre::where('id', $productId)
         // ->leftJoin('movies', 'moviegenre.movies_id', '=', 'moviegenre.id');
         // $thequery = DB::table('moviegenre')
@@ -24,7 +25,9 @@ class HomeController extends Controller
         if($request->has('categories')){
             $categories = $filter['categories'];
             //filter by categories
-            $thequery->whereIn('genres_id',$categories);
+            $thequery = DB::table('moviegenre')
+            ->join('movies', 'moviegenre.movies_id', '=', 'movies.id');           
+            $thequery->whereIn('genres_id',$categories)->distinct('movies.id');
         }
         $movies = $thequery->take(5)->get();
         return response()->json($movies);
@@ -63,5 +66,9 @@ class HomeController extends Controller
         }else{
             return \response()->status(401)->json(['message'=>'Unauthorized']);
         }
+    }
+    public function get_genres(Request $request){
+        $genres = \App\Genre::all();
+        return \response()->json($genres);
     }
 }

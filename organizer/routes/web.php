@@ -15,6 +15,7 @@ $router->post('/authenticate','HomeController@authenticate');
 $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/get_latest','HomeController@get_latest');
 });
+$router->get('/get_genres','HomeController@get_genres');
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });

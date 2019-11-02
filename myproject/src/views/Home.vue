@@ -1,5 +1,5 @@
 <template>
-<v-sheet height="400" class="overflow-hidden" style="position: relative;">
+<v-sheet height="600" class="overflow-hidden" style="position: relative;" width="350">
     <v-navigation-drawer
         v-model="drawer"
         absolute
@@ -18,14 +18,12 @@
         <v-divider></v-divider>
 
         <v-list dense>
-            <v-list-group prepend-icon="account_circle" value="true">
+            <v-list-group value="true">
                 <template v-slot:activator>
                 <v-list-item-title>Genre</v-list-item-title>
                 </template>
-                <v-list-item>
-                    <v-checkbox
-                    v-for ="(k,index) in genres"
-                    :key="'gen'+index" 
+                <v-list-item v-for ="(k,index) in genres" :key="'gen'+index">
+                    <v-checkbox 
                     v-model="selcats" 
                     :label="k.genre"
                     :value="k.id"
@@ -66,15 +64,24 @@
     <v-container class="fill-height">
         <v-row
         >
+            <h3 class="ml-3">Latest Movies</h3>
             <head-view :latest="latest"></head-view>
+        </v-row>
+        <v-row>
             <v-btn @click="searching">
                 Search
             </v-btn>
-            <recommended  :recom="recom"></recommended>
+            <v-btn @click="drawer=!drawer" color="info">
+                Menu
+            </v-btn>
+            <recommended  :recom="recom" dark></recommended>
         </v-row>
     </v-container>
 </v-sheet>
 </template>
+<style scoped>
+
+</style>
 <script>
 import config from '../config.json'
 import HeaderView from '../components/HeaderView'
@@ -91,13 +98,15 @@ export default {
             filtering:false,
             popular:[],
             radios:'',
-            thedata:{}
+            thedata:{},
+            genres:[]
         }
     },
     watch:{
         selcats: function(){
             if(this.selcats.length > 0){
-                this.thedata['catgeories'] = this.selcats
+                this.thedata['catgeories'] = this.selcats;
+                console.log(this.selcats)
             }
         },
         radios:function(theval){
@@ -143,6 +152,7 @@ export default {
     },
     mounted(){
         this.getlatest();
+        this.get_genres();
     },
     methods:{
         getlatest(){
@@ -172,12 +182,16 @@ export default {
             });
         },
         get_genres(){
-
+            this.axios({
+                url:config.organizer + 'get_genres',
+            }).then((response)=>{
+                this.genres=response.data;
+            });
         },
         searching(){
-            this.getrecommended();
+            //this.getrecommended();
             this.getlatest();
-            this.getpopular();
+            //this.getpopular();
         }
     }
 }

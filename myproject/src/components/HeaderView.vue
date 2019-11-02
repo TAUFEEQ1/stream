@@ -1,21 +1,23 @@
 <template>
     <div>
-        <carousel style="width:80vh;" :width="280" :height="360">
+        <carousel :paginationEnabled="false" :perPage="1" :navigationEnabled="true">
             <slide
                 v-for="(j,index) in latest"
                 :key="'latest'+index"
-            >
-                <figure>
+                class="pl-2"
+            >   
+                <v-card height="340" width="340" >
                     <v-img 
                         :src="'/images/'+j.mposter+'/1.jpg'"
-                        max-width="200"
-                        max-height="200"
+                        max-width="340"
+                        max-height="280"
                         class="grey lighten-2"
                     ></v-img>
-                    <figcaption>
+                    <v-card-text>
                         <h4>{{j.title}}</h4>
-                    </figcaption>
-                </figure>
+                        {{j.created_at}}
+                    </v-card-text>
+                </v-card>
             </slide>
         </carousel>
     </div>

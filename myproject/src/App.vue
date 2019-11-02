@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app dark>
       <v-toolbar-title class="headline text-uppercase">
         <span>Streamer</span>
         <span class="font-weight-light">'19</span>
